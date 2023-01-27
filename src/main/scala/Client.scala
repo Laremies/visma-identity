@@ -25,6 +25,12 @@ object Client extends JFXApp3:
               onAction = ActionEvent => {
                 try {
                   val id = new Identify(text.value)
+                  new Alert(AlertType.Information) {
+                    title = "Success"
+                    headerText = "URI succesfully identified"
+                    contentText = s"Path: ${id.getPath}\n ${id.getParameters.mkString("\n")}"
+                  }.showAndWait()
+
                   /*path = id.getPath
                   id.getParameters.foreach(param => params += s"${param._1}: ${param._2}\n")
                   println(path)
@@ -32,6 +38,7 @@ object Client extends JFXApp3:
                 } catch {
                   case e: Exception => {
                     new Alert(AlertType.Error) {
+                      initOwner(stage)
                       title = "Error"
                       headerText = "An error occurred"
                       contentText = e.getMessage

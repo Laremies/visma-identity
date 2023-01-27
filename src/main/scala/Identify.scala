@@ -21,10 +21,12 @@ class Identify(val uri: String):
 
     val checkSource: Boolean = this.parameters.contains("source")
     this.path = uriToParse.getAuthority
+    
     this.path match
       case "login" =>
         if !checkSource then
           throw new IllegalArgumentException("Missing source parameter for login path")
+          
       case "confirm" =>
         if !checkSource || !this.parameters.contains("paymentnumber") then
           throw new IllegalArgumentException("Missing source or 'paymentnumber' parameter for confirm path")
@@ -32,9 +34,11 @@ class Identify(val uri: String):
           this.parameters("paymentnumber").toInt
         catch
           case _: NumberFormatException => throw new IllegalArgumentException("Payment number must be an integer")
+          
       case "sign" =>
         if !checkSource || !this.parameters.contains("documentid") then
           throw new IllegalArgumentException("Missing source or 'documentid' parameter for sign path")
+          
       case _ => throw new IllegalArgumentException("Invalid path")
   end parse
 
