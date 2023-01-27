@@ -38,4 +38,9 @@ class IdentifySpec extends AnyFlatSpec with should.Matchers:
     the[IllegalArgumentException] thrownBy (new Identify("visma-identity://confirm?source=netvisor&paymentnumber=hundredone")) should have message expectedMessage
   }
 
+  it should "throw correct error if parameter doesn't have a value" in {
+    val expectedMessage = "Invalid parameters"
+    the[ArrayIndexOutOfBoundsException] thrownBy (new Identify("visma-identity://confirm?sourc")) should have message expectedMessage
+  }
+
 end IdentifySpec

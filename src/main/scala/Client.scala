@@ -9,6 +9,8 @@ import scalafx.event.ActionEvent
 
 object Client extends JFXApp3:
 
+  var path: String = ""
+  var params: String = ""
   override def start(): Unit =
    stage = new JFXApp3.PrimaryStage {
      title = "Visma Identity"
@@ -22,7 +24,12 @@ object Client extends JFXApp3:
              promptText = "Input URI"
              focusTraversable = false
              onAction = ActionEvent => {
-               //new Identify("")
+               
+               val id = new Identify(text.value)
+               path = id.getPath
+               id.getParameters.foreach(param => params += s"${param._1}: ${param._2}\n")
+               println(path)
+               println(params)
              }
            },
            new HBox {
