@@ -15,6 +15,7 @@ object Client extends JFXApp3 {
       var params: String = ""
       id.getParameters.foreach(param => params += s"\n${param._1} = ${param._2}")
       new Alert(AlertType.Information) {
+        initOwner(stage)
         title = "Success"
         headerText = "URI succesfully identified"
         contentText = s"Path:\n${id.getPath}\n\nParameters: ${params}"
@@ -32,6 +33,26 @@ object Client extends JFXApp3 {
   }
 
   override def start(): Unit = {
+    val textField = new TextField {
+      promptText = "Input URI"
+      focusTraversable = false
+      onAction = ActionEvent => {
+        submitAction(text.value)
+      }
+    }
+
+    val submitButton = new HBox {
+      padding = Insets(5)
+      alignment = Pos.Center
+      children = new Button {
+        text = "Identify"
+        focusTraversable = false
+        onAction = ActionEvent => {
+          submitAction(textField.text.value)
+        }
+      }
+    }
+
     stage = new JFXApp3.PrimaryStage {
       title = "Visma Identity"
       width = 600
@@ -39,26 +60,7 @@ object Client extends JFXApp3 {
       scene = new Scene {
         root = new VBox {
           padding = Insets(75)
-          children = Seq(
-            new TextField {
-              promptText = "Input URI"
-              focusTraversable = false
-              onAction = ActionEvent => {
-                submitAction(text.value)
-              }
-            },
-            new HBox {
-              padding = Insets(5)
-              alignment = Pos.Center
-              children = new Button {
-                text = "Submit"
-                focusTraversable = false
-                onAction = ActionEvent => {
-                  submitAction("placeholder")
-                }
-              }
-            }
-          )
+          children = Seq(textField, submitButton)
         }
       }
     }
