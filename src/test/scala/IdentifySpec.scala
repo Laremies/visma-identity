@@ -38,6 +38,4 @@ class IdentifySpec extends AnyFlatSpec with should.Matchers:
     the[IllegalArgumentException] thrownBy (new Identify("visma-identity://confirm?source=netvisor&paymentnumber=hundredone")) should have message expectedMessage
   }
 
-
 end IdentifySpec
-

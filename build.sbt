@@ -7,6 +7,8 @@ lazy val root = (project in file("."))
     name := "visma-identity"
   )
 
+libraryDependencies += "org.scalafx" %% "scalafx" % "16.0.0-R24"
+
 libraryDependencies ++= {
   // Determine OS version of JavaFX binaries
   lazy val osName = System.getProperty("os.name") match {

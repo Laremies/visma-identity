@@ -4,7 +4,7 @@ import scala.collection.mutable.Map
 class Identify(val uri: String):
   private val scheme: String = "visma-identity"
   private val parameters: Map[String, String] = Map()
-  private var path = ""
+  private var path: String = ""
 
   private def parse(): Unit =
     val uriToParse = new URI(this.uri)
@@ -18,7 +18,7 @@ class Identify(val uri: String):
 
     val checkSource: Boolean = this.parameters.contains("source")
     this.path = uriToParse.getAuthority
-    path match
+    this.path match
       case "login" =>
         if !checkSource then
           throw new IllegalArgumentException("Missing source parameter for login path")
@@ -33,7 +33,6 @@ class Identify(val uri: String):
         if !checkSource || !this.parameters.contains("documentid") then
           throw new IllegalArgumentException("Missing source or 'documentid' parameter for sign path")
       case _ => throw new IllegalArgumentException("Invalid path")
-
   end parse
 
   parse()
@@ -41,6 +40,5 @@ class Identify(val uri: String):
   def getPath: String = path
 
   def getParameters: Map[String, String] = parameters
-
 
 end Identify
