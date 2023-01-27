@@ -8,9 +8,30 @@ import scalafx.geometry.Pos
 import scalafx.event.ActionEvent
 
 
-object Client extends JFXApp3:
+object Client extends JFXApp3 {
+  private def submitAction(text: String): Unit = {
+    try {
+      val id = new Identify(text)
+      var params: String = ""
+      id.getParameters.foreach(param => params += s"\n${param._1} = ${param._2}")
+      new Alert(AlertType.Information) {
+        title = "Success"
+        headerText = "URI succesfully identified"
+        contentText = s"Path:\n${id.getPath}\n\nParameters: ${params}"
+      }.showAndWait()
+    } catch {
+      case e: Exception => {
+        new Alert(AlertType.Error) {
+          initOwner(stage)
+          title = "Error"
+          headerText = "An error occurred"
+          contentText = e.getMessage
+        }.showAndWait()
+      }
+    }
+  }
 
-  override def start(): Unit =
+  override def start(): Unit = {
     stage = new JFXApp3.PrimaryStage {
       title = "Visma Identity"
       width = 600
@@ -23,28 +44,7 @@ object Client extends JFXApp3:
               promptText = "Input URI"
               focusTraversable = false
               onAction = ActionEvent => {
-                try {
-                  val id = new Identify(text.value)
-                  new Alert(AlertType.Information) {
-                    title = "Success"
-                    headerText = "URI succesfully identified"
-                    contentText = s"Path: ${id.getPath}\n ${id.getParameters.mkString("\n")}"
-                  }.showAndWait()
-
-                  /*path = id.getPath
-                  id.getParameters.foreach(param => params += s"${param._1}: ${param._2}\n")
-                  println(path)
-                  println(params)*/
-                } catch {
-                  case e: Exception => {
-                    new Alert(AlertType.Error) {
-                      initOwner(stage)
-                      title = "Error"
-                      headerText = "An error occurred"
-                      contentText = e.getMessage
-                    }.showAndWait()
-                  }
-                }
+                submitAction(text.value)
               }
             },
             new HBox {
@@ -53,12 +53,16 @@ object Client extends JFXApp3:
               children = new Button {
                 text = "Submit"
                 focusTraversable = false
+                onAction = ActionEvent => {
+                  submitAction("placeholder")
+                }
               }
             }
           )
         }
       }
     }
-  end start
+  }
+}
 
 end Client
