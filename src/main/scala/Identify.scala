@@ -37,8 +37,8 @@ class Identify(val uri: String):
 
   parse()
 
-  def getPath: String = path
+  def getPath: String = this.path
 
-  def getParameters: Map[String, String] = parameters
+  def getParameters: Map[String, String] = this.parameters
 
 end Identify
