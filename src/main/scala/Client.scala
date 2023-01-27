@@ -56,15 +56,14 @@ object Client extends JFXApp3 {
     stage = new JFXApp3.PrimaryStage {
       title = "Visma Identity"
       width = 600
-      height = 400
+      height = 350
       scene = new Scene {
         root = new VBox {
           padding = Insets(75)
+          alignment = Pos.Center
           children = Seq(textField, submitButton)
         }
       }
     }
   }
 }
-
-end Client
