@@ -11,14 +11,14 @@ import scalafx.event.ActionEvent
 object Client extends JFXApp3 {
   private def submitAction(text: String): Unit = {
     try {
-      val id = new Identify(text)
+      val uri = new Identify(text)
       var params: String = ""
-      id.getParameters.foreach(param => params += s"\n${param._1} = ${param._2}")
+      uri.getParameters.foreach(param => params += s"\n${param._1} = ${param._2}")
       new Alert(AlertType.Information) {
         initOwner(stage)
         title = "Success"
         headerText = "Request succesfully identified"
-        contentText = s"Path:\n${id.getPath}\n\nParameters: ${params}"
+        contentText = s"Path:\n${uri.getPath}\n\nParameters: ${params}"
       }.showAndWait()
     } catch {
       case e: Exception => {
