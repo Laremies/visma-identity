@@ -17,7 +17,7 @@ class Identify(val uri: String):
                                     .map(_.split("="))
                                     .map(arr => arr(0) -> arr(1)).toMap
     catch
-      case _: ArrayIndexOutOfBoundsException => throw new ArrayIndexOutOfBoundsException("Invalid parameters")
+      case e: ArrayIndexOutOfBoundsException => throw new ArrayIndexOutOfBoundsException("Invalid parameters")
 
     val checkSource: Boolean = this.parameters.contains("source")
     this.path = uriToParse.getAuthority
