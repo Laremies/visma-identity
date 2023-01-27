@@ -12,8 +12,8 @@ class Identify(val uri: String):
     if uriToParse.getScheme != this.scheme then
       throw new IllegalArgumentException("Invalid URI sheme")
 
-    this.path = uriToParse.getPath
-    if !allowedPaths.contains(path) then
+    this.path = uriToParse.getAuthority
+    if !allowedPaths.contains(this.path) then
       throw new IllegalArgumentException("Invalid path")
 
     this.parameters ++= uriToParse.getQuery
