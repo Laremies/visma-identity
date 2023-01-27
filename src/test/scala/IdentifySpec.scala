@@ -27,6 +27,13 @@ class IdentifySpec extends AnyFlatSpec with should.Matchers:
     the [IllegalArgumentException] thrownBy(new Identify("vism-identity://login?source=severa")) should have message expectedMessage
   }
 
+  it should "throw correct error if source or parameter is missing" in {
+    val expectedMessage1 = "Missing parameter 'source' for path 'login'"
+    the[IllegalArgumentException] thrownBy (new Identify("visma-identity://login?sourc=severa")) should have message expectedMessage1
+    val expectedMessage2 = "Missing source or parameter 'documentid' for path 'sign'"
+    the[IllegalArgumentException] thrownBy(new Identify("visma-identity://sign?source=vismasign&documen=105ab44")) should have message expectedMessage2
+  }
+
   it should "throw correct error if path is wrong" in {
     val expectedMessage = "Invalid path"
     the[IllegalArgumentException] thrownBy (new Identify("visma-identity://loginn?source=severa")) should have message expectedMessage

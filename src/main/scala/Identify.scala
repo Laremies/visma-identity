@@ -25,11 +25,11 @@ class Identify(val uri: String):
     this.path match
       case "login" =>
         if !checkSource then
-          throw new IllegalArgumentException("Missing source parameter for login path")
+          throw new IllegalArgumentException("Missing parameter 'source' for path 'login'")
           
       case "confirm" =>
         if !checkSource || !this.parameters.contains("paymentnumber") then
-          throw new IllegalArgumentException("Missing source or 'paymentnumber' parameter for confirm path")
+          throw new IllegalArgumentException("Missing source or parameter 'paymentnumber' for path 'confirm'")
         try
           this.parameters("paymentnumber").toInt
         catch
@@ -37,7 +37,7 @@ class Identify(val uri: String):
           
       case "sign" =>
         if !checkSource || !this.parameters.contains("documentid") then
-          throw new IllegalArgumentException("Missing source or 'documentid' parameter for sign path")
+          throw new IllegalArgumentException("Missing source or parameter 'documentid' for path 'sign'")
           
       case _ => throw new IllegalArgumentException("Invalid path")
   end parse
