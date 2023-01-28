@@ -25,7 +25,7 @@ object Client extends JFXApp3 {
       new Alert(AlertType.Information) {
         initOwner(stage)
         title = "Success"
-        headerText = "Request succesfully identified"
+        headerText = "Request successfully identified"
         contentText = s"Path:\n${uri.getPath}\n\nParameters: ${params}"
       }.showAndWait()
     } catch {
