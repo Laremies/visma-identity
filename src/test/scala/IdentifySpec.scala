@@ -2,6 +2,10 @@ import org.scalatest._
 import flatspec._
 import matchers._
 
+/** Unit tests for the class 'Identify'
+  *
+  * Checks that it parses the URI correctly or throws an appropriate exception.
+  */
 class IdentifySpec extends AnyFlatSpec with should.Matchers:
 
   "Identify" should "return correct path and parameters with 'login'" in {
