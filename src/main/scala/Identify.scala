@@ -49,6 +49,7 @@ class Identify(val uri: String):
       case "confirm" =>
         if !checkSource || !this.parameters.contains("paymentnumber") then
           throw new IllegalArgumentException("Missing source or parameter 'paymentnumber' for path 'confirm'")
+        // payment number must be an integer
         try
           this.parameters("paymentnumber").toInt
         catch
